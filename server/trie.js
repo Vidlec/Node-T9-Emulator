@@ -1,37 +1,32 @@
 var fs = require("fs");
-var keys = {
-    'a': 2,
-    'b': 2,
-    'c': 2,
-    'd': 3,
-    'e': 3,
-    'f': 3,
-    'g': 4,
-    'h': 4,
-    'i': 4,
-    'j': 5,
-    'k': 5,
-    'l': 5,
-    'm': 6,
-    'n': 6,
-    'o': 6,
-    'p': 7,
-    'q': 7,
-    'r': 7,
-    's': 7,
-    't': 8,
-    'u': 8,
-    'v': 8,
-    'w': 9,
-    'x': 9,
-    'y': 9,
-    'z': 9
-};
-
-//This solution is far better. It uses prefix trees.
-//It generates all possible numeric combinations for given dictionary words.
-//Then its easy to traverse tree for given number and list all asociated words.
-//Credit goes to http://www.mitchrobb.com/t9-in-javascript-with-a-prefix-tree/
+const keys = {
+        'a': 2,
+        'b': 2,
+        'c': 2,
+        'd': 3,
+        'e': 3,
+        'f': 3,
+        'g': 4,
+        'h': 4,
+        'i': 4,
+        'j': 5,
+        'k': 5,
+        'l': 5,
+        'm': 6,
+        'n': 6,
+        'o': 6,
+        'p': 7,
+        'q': 7,
+        'r': 7,
+        's': 7,
+        't': 8,
+        'u': 8,
+        'v': 8,
+        'w': 9,
+        'x': 9,
+        'y': 9,
+        'z': 9
+    };
 
 var Trie = function () {
     this.children = {};
@@ -88,19 +83,37 @@ Trie.prototype.getSuggestions = function (keyString) {
     return result;
 };
 
-var dict = new Trie();
 
-function processData(allText) {
-    lines = allText.split('\n');
 
-    lines.forEach(function (word) {
-        word = word.split('\t');
-        word = word.toString().toLowerCase();
-        dict.insert(word);
-    });
-    console.log("Done parsing dictionary");
+
+
+
+function trie() {
+    this.Trie = Trie;
+    var dict = new this.Trie();
+
+    function processData(allText) {
+        lines = allText.split('\n');
+        lines.forEach(function (word) {
+            word = word.split('\t');
+            word = word.toString().toLowerCase();
+            dict.insert(word);
+        });
+        console.log("Done parsing dictionary");
+    }
+    const dictionary = fs.readFileSync("server/dictionary.txt", "utf8");
+    processData(dictionary);
+    this.suggest = (input) => {
+        return new Promise((resolve, reject) => {
+            resolve(dict.getSuggestions(input));
+        })
+    }
 }
 
-const dictionary = fs.readFileSync("server/dictionary.txt", "utf8");
-processData(dictionary);
-console.log(dict.getSuggestions("8378464"));
+
+//This solution is far better. It uses prefix trees.
+//It generates all possible numeric combinations for given dictionary words.
+//Then its easy to traverse tree for given number and list all asociated words.
+//Credit goes to http://www.mitchrobb.com/t9-in-javascript-with-a-prefix-tree/
+
+module.exports = trie;

@@ -2,6 +2,7 @@ const fs = require("fs");
 const dictionary = fs.readFileSync("server/dictionary.txt", "utf8");
 const dictionaryWords = dictionary.split(/\s+/g);
 
+
 const values = {
     2: ["a", "b", "c"],
     3: ["d", "e", "f"],
@@ -15,9 +16,8 @@ const values = {
 
 //This implementation generates all possible words
 //Very inefective when searching for longer words
-t9("8378464").then((result)=>console.log(result));
 
-function t9(input) {
+var t9 = function(input) {
     return new Promise((resolve, reject) => {
 
         const letters = input.split("");
@@ -45,6 +45,7 @@ function refraction(word, letters, combinations, position, length) {
         }
     }
 }
+exports.suggest = t9;
 
 
 
