@@ -29,7 +29,7 @@ var keys = {
 };
 
 //This solution is far better. It uses prefix trees.
-//It generates all possible numeris combinations for given dictionary words.
+//It generates all possible numeric combinations for given dictionary words.
 //Then its easy to traverse tree for given number and list all asociated words.
 //Credit goes to http://www.mitchrobb.com/t9-in-javascript-with-a-prefix-tree/
 
