@@ -27,7 +27,7 @@ const keys = {
         'y': 9,
         'z': 9
     };
-
+    
 var Trie = function () {
     this.children = {};
     this.words = [];
@@ -82,10 +82,6 @@ Trie.prototype.getSuggestions = function (keyString) {
     }));
     return result;
 };
-
-
-
-
 
 
 function trie() {
