@@ -1,0 +1,15 @@
+{
+  "name": "t9",
+  "version": "0.0.1",
+  "description": "T9 prediction app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josef Vidlák",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "request": "^2.81.0"
+  }
+}
