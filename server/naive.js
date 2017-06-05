@@ -18,23 +18,19 @@ const values = {
 
 var t9 = function (input) {
     return new Promise((resolve, reject) => {
-
         const letters = input.split("");
-        const wordLength = letters.length - 1;
-
         var combinations = [];
-        var realWords = [];
         var word = "";
-        refraction(word, letters, combinations, 0, wordLength);
+        search(word, letters, combinations, 0, letters.length - 1);
         resolve(combinations);
     })
 }
 
-function refraction(word, letters, combinations, position, length) {
+function search(word, letters, combinations, position, length) {
     if (position <= length) {
         for (const possible of values[letters[position]]) {
             var newWord = word + possible;
-            refraction(newWord, letters, combinations, position + 1, length);
+            search(newWord, letters, combinations, position + 1, length);
         }
     } else {
         combinations.push(word);
