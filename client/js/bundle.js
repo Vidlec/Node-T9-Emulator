@@ -9554,9 +9554,8 @@ var App = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.state = { suggested: [], keys: "", text: "", sentence: ""
-            //this.handleTextChange = this.handleTextChange.bind(this);
-        };_this.handleKeyPress = _this.handleKeyPress.bind(_this);
+        _this.state = { suggested: [], keys: "", text: "", sentence: "" };
+        _this.handleKeyPress = _this.handleKeyPress.bind(_this);
         _this.handleWordSelection = _this.handleWordSelection.bind(_this);
         return _this;
     }
@@ -9679,12 +9678,12 @@ var KeyPad = function (_Component4) {
                     { className: "dial", key: i, "data-value": i, onClick: this.props.onKeyPressed },
                     _react2.default.createElement(
                         "p",
-                        { "data-value": i },
+                        { className: "number", "data-value": i },
                         i
                     ),
                     _react2.default.createElement(
                         "p",
-                        { "data-value": i },
+                        { className: "keys", "data-value": i },
                         keys[i]
                     )
                 ));

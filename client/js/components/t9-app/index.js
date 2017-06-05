@@ -87,8 +87,8 @@ class KeyPad extends Component{
         for(var i = 1; i < 10;i++){
             dials.push(
             <div className="dial" key={i} data-value={i} onClick={this.props.onKeyPressed}>
-            <p data-value={i}>{i}</p>
-            <p data-value={i}>{keys[i]}</p>
+            <p className="number" data-value={i}>{i}</p>
+            <p className="keys" data-value={i}>{keys[i]}</p>
             </div>
             );
         }
