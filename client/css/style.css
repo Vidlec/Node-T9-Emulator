@@ -132,14 +132,46 @@ width: 200px;
 .suggestedWord{
   float: left;
   margin: 5px;
-  border: 1px solid black;
+  border: 1px dotted black;
   clear: right;
 }
+.suggestedWord:hover{
+  border: 1px dotted red;
+}
+.suggestedWords{
+      width: 186px;
+    height: 35px;
+    clear: both;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
 .display{
-    width: 200px;
+    width: 188px;
     height: 50px;
     background-color: black;
     color: white;
     font-weight: 800;
     font-size: xx-large;
+}
+p{
+  margin: 0;
+  z-index: -1000;
+}
+.dial{
+ margin: 5px;
+    width: 50px;
+    height: 50px;
+    float: left;
+    text-align: center;
+    border: 1px solid black;
+    z-index: 1000;
+}
+.dial:hover{
+  border: 1px solid mediumvioletred;
+}
+.keypad{
+  width: 186px;
+  height: 186px;
+  border: 1px solid;
 }

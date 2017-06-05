@@ -9566,6 +9566,7 @@ var App = function (_Component) {
         value: function handleKeyPress(e) {
             var _this2 = this;
 
+            console.log(e.target);
             var dial = e.target.getAttribute('data-value');
             var keys = this.state.keys + dial;
             getSuggestion(keys).then(function (suggestions) {
@@ -9678,12 +9679,12 @@ var KeyPad = function (_Component4) {
                     { className: "dial", key: i, "data-value": i, onClick: this.props.onKeyPressed },
                     _react2.default.createElement(
                         "p",
-                        null,
+                        { "data-value": i },
                         i
                     ),
                     _react2.default.createElement(
                         "p",
-                        null,
+                        { "data-value": i },
                         keys[i]
                     )
                 ));

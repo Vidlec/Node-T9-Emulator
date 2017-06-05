@@ -25,6 +25,7 @@ class App extends Component{
         this.handleWordSelection = this.handleWordSelection.bind(this);
     }
     handleKeyPress(e){
+        console.log(e.target);
         const dial = e.target.getAttribute('data-value');
         var keys = this.state.keys+dial
         getSuggestion(keys)
@@ -85,7 +86,12 @@ class KeyPad extends Component{
     render(){
         var dials = [];
         for(var i = 1; i < 10;i++){
-            dials.push(<div className="dial" key={i} data-value={i} onClick={this.props.onKeyPressed}><p>{i}</p><p>{keys[i]}</p></div>)
+            dials.push(
+            <div className="dial" key={i} data-value={i} onClick={this.props.onKeyPressed}>
+            <p data-value={i}>{i}</p>
+            <p data-value={i}>{keys[i]}</p>
+            </div>
+            );
         }
         return(
             <div className="keypad">
