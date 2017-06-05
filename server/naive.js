@@ -17,7 +17,7 @@ const values = {
 //This implementation generates all possible words
 //Very inefective when searching for longer words
 
-var t9 = function(input) {
+var t9 = function (input) {
     return new Promise((resolve, reject) => {
 
         const letters = input.split("");
@@ -31,23 +31,14 @@ var t9 = function(input) {
     })
 }
 
-function refraction(word, letters, combinations, position, length) { 
+function refraction(word, letters, combinations, position, length) {
     if (position <= length) {
         for (const possible of values[letters[position]]) {
             var newWord = word + possible;
             refraction(newWord, letters, combinations, position + 1, length);
         }
     } else {
-        for (const dictionaryWord of dictionaryWords) {
-            if (word === dictionaryWord) {
-                combinations.push(word);
-            }
-        }
+        combinations.push(word);
     }
 }
 exports.suggest = t9;
-
-
-
-
-

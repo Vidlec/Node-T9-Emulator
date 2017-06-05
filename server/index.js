@@ -7,6 +7,7 @@ var app = express();
 var router = express.Router();
 
 app.use("/api",router);
+app.use("/",express.static("./client"));
 router.route("/suggest")
 .get((req,res)=>{
     (req.query.method === "trie")?

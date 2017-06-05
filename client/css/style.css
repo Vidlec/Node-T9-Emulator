@@ -128,3 +128,18 @@ width: 100px;
 .lastOccurence{
 width: 200px;
 }
+
+.suggestedWord{
+  float: left;
+  margin: 5px;
+  border: 1px solid black;
+  clear: right;
+}
+.display{
+    width: 200px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    font-weight: 800;
+    font-size: xx-large;
+}

@@ -9532,257 +9532,198 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var keys = {
+    1: ".,?",
+    2: "abc",
+    3: "def",
+    4: "ghi",
+    5: "jkl",
+    6: "mno",
+    7: "pqrs",
+    8: "tuv",
+    9: "wxyz"
+};
+
 console.log("Hello world, this is the Webpack");
 
-var AlertsList = function (_Component) {
-	_inherits(AlertsList, _Component);
+var App = function (_Component) {
+    _inherits(App, _Component);
 
-	function AlertsList(props) {
-		_classCallCheck(this, AlertsList);
+    function App(props) {
+        _classCallCheck(this, App);
 
-		var _this = _possibleConstructorReturn(this, (AlertsList.__proto__ || Object.getPrototypeOf(AlertsList)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-		_this.handleClearClick = _this.handleClearClick.bind(_this);
-		_this.handleLoadClick = _this.handleLoadClick.bind(_this);
-		_this.handleTextChange = _this.handleTextChange.bind(_this);
-		_this.state = { alerts: props.alerts, filterText: props.filterText };
-		return _this;
-	}
+        _this.state = { suggested: [], keys: "", text: "", sentence: ""
+            //this.handleTextChange = this.handleTextChange.bind(this);
+        };_this.handleKeyPress = _this.handleKeyPress.bind(_this);
+        _this.handleWordSelection = _this.handleWordSelection.bind(_this);
+        return _this;
+    }
 
-	_createClass(AlertsList, [{
-		key: "componentDidMount",
-		value: function componentDidMount() {
-			this.setState(this.state);
-		}
-	}, {
-		key: "handleClearClick",
-		value: function handleClearClick() {
-			this.setState({ alerts: [] });
-		}
-	}, {
-		key: "handleLoadClick",
-		value: function handleLoadClick() {
-			var _this2 = this;
+    _createClass(App, [{
+        key: "handleKeyPress",
+        value: function handleKeyPress(e) {
+            var _this2 = this;
 
-			loadAlerts().then(function (alerts) {
-				return _this2.setState({ alerts: alerts });
-			});
-		}
-	}, {
-		key: "handleTextChange",
-		value: function handleTextChange(filterText) {
-			this.setState({ filterText: filterText });
-		}
-	}, {
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"div",
-				null,
-				_react2.default.createElement(
-					"h1",
-					null,
-					"Alerts"
-				),
-				_react2.default.createElement(ClearButton, { clearAlerts: this.handleClearClick }),
-				_react2.default.createElement(LoadButton, { loadAlerts: this.handleLoadClick }),
-				_react2.default.createElement(SearchBar, { filterText: this.state.filterText, onFilterChange: this.handleTextChange }),
-				_react2.default.createElement(
-					"div",
-					{ className: "headerBox severity" },
-					"Severity"
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "headerBox host" },
-					"Host"
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "headerBox message" },
-					"Message"
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "headerBox age" },
-					"Age"
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "headerBox lastOccurence" },
-					"Last Occurence"
-				),
-				_react2.default.createElement(Alerts, { alerts: this.state.alerts, filterText: this.state.filterText })
-			);
-		}
-	}]);
+            var dial = e.target.getAttribute('data-value');
+            var keys = this.state.keys + dial;
+            getSuggestion(keys).then(function (suggestions) {
+                _this2.setState({
+                    text: _this2.state.text + dial.toString(),
+                    keys: keys,
+                    suggested: suggestions,
+                    sentence: _this2.state.sentence
+                });
+            });
+        }
+    }, {
+        key: "handleWordSelection",
+        value: function handleWordSelection(e) {
+            console.log(e.target.getAttribute('data-value'));
+            var sentence = this.state.sentence + e.target.getAttribute('data-value') + " ";
+            this.setState({
+                text: sentence,
+                keys: "",
+                suggested: [],
+                sentence: sentence
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(Display, { text: this.state.text }),
+                _react2.default.createElement(SuggestedWords, { onWordPressed: this.handleWordSelection, suggested: this.state.suggested }),
+                _react2.default.createElement(KeyPad, { onKeyPressed: this.handleKeyPress })
+            );
+        }
+    }]);
 
-	return AlertsList;
+    return App;
 }(_react.Component);
 
-var Alerts = function (_Component2) {
-	_inherits(Alerts, _Component2);
+var Display = function (_Component2) {
+    _inherits(Display, _Component2);
 
-	function Alerts() {
-		_classCallCheck(this, Alerts);
+    function Display() {
+        _classCallCheck(this, Display);
 
-		return _possibleConstructorReturn(this, (Alerts.__proto__ || Object.getPrototypeOf(Alerts)).apply(this, arguments));
-	}
+        return _possibleConstructorReturn(this, (Display.__proto__ || Object.getPrototypeOf(Display)).apply(this, arguments));
+    }
 
-	_createClass(Alerts, [{
-		key: "render",
-		value: function render() {
-			var _this4 = this;
+    _createClass(Display, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "display" },
+                this.props.text
+            );
+        }
+    }]);
 
-			var filteredAlerts = [];
-			this.props.alerts.forEach(function (alert) {
-				if (alert.host.indexOf(_this4.props.filterText) === -1) {
-					return;
-				}
-				filteredAlerts.push(_react2.default.createElement(Alert, { key: alert.identifier, alert: alert }));
-			});
-			return _react2.default.createElement(
-				"div",
-				{ className: "alerts" },
-				filteredAlerts
-			);
-		}
-	}]);
-
-	return Alerts;
+    return Display;
 }(_react.Component);
 
-var ClearButton = function (_Component3) {
-	_inherits(ClearButton, _Component3);
+var SuggestedWords = function (_Component3) {
+    _inherits(SuggestedWords, _Component3);
 
-	function ClearButton() {
-		_classCallCheck(this, ClearButton);
+    function SuggestedWords() {
+        _classCallCheck(this, SuggestedWords);
 
-		return _possibleConstructorReturn(this, (ClearButton.__proto__ || Object.getPrototypeOf(ClearButton)).apply(this, arguments));
-	}
+        return _possibleConstructorReturn(this, (SuggestedWords.__proto__ || Object.getPrototypeOf(SuggestedWords)).apply(this, arguments));
+    }
 
-	_createClass(ClearButton, [{
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"button",
-				{ onClick: this.props.clearAlerts },
-				"Clear All alerts"
-			);
-		}
-	}]);
+    _createClass(SuggestedWords, [{
+        key: "render",
+        value: function render() {
+            var words = [];
+            for (var i = 0; i < this.props.suggested.length; i++) {
+                words.push(_react2.default.createElement(
+                    "div",
+                    { key: i, "data-value": this.props.suggested[i], onClick: this.props.onWordPressed, className: "suggestedWord" },
+                    this.props.suggested[i]
+                ));
+            }
+            return _react2.default.createElement(
+                "div",
+                { className: "suggestedWords" },
+                words
+            );
+        }
+    }]);
 
-	return ClearButton;
+    return SuggestedWords;
 }(_react.Component);
 
-var LoadButton = function (_Component4) {
-	_inherits(LoadButton, _Component4);
+var KeyPad = function (_Component4) {
+    _inherits(KeyPad, _Component4);
 
-	function LoadButton() {
-		_classCallCheck(this, LoadButton);
+    function KeyPad() {
+        _classCallCheck(this, KeyPad);
 
-		return _possibleConstructorReturn(this, (LoadButton.__proto__ || Object.getPrototypeOf(LoadButton)).apply(this, arguments));
-	}
+        return _possibleConstructorReturn(this, (KeyPad.__proto__ || Object.getPrototypeOf(KeyPad)).apply(this, arguments));
+    }
 
-	_createClass(LoadButton, [{
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"button",
-				{ onClick: this.props.loadAlerts },
-				"Load All alerts"
-			);
-		}
-	}]);
+    _createClass(KeyPad, [{
+        key: "render",
+        value: function render() {
+            var dials = [];
+            for (var i = 1; i < 10; i++) {
+                dials.push(_react2.default.createElement(
+                    "div",
+                    { className: "dial", key: i, "data-value": i, onClick: this.props.onKeyPressed },
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        i
+                    ),
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        keys[i]
+                    )
+                ));
+            }
+            return _react2.default.createElement(
+                "div",
+                { className: "keypad" },
+                dials
+            );
+        }
+    }]);
 
-	return LoadButton;
+    return KeyPad;
 }(_react.Component);
 
-var SearchBar = function (_Component5) {
-	_inherits(SearchBar, _Component5);
+var Key = function (_Component5) {
+    _inherits(Key, _Component5);
 
-	function SearchBar(props) {
-		_classCallCheck(this, SearchBar);
+    function Key() {
+        _classCallCheck(this, Key);
 
-		var _this7 = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+        return _possibleConstructorReturn(this, (Key.__proto__ || Object.getPrototypeOf(Key)).apply(this, arguments));
+    }
 
-		_this7.handleTextChange = _this7.handleTextChange.bind(_this7);
-		return _this7;
-	}
-
-	_createClass(SearchBar, [{
-		key: "handleTextChange",
-		value: function handleTextChange(e) {
-			this.props.onFilterChange(e.target.value);
-		}
-	}, {
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"form",
-				null,
-				_react2.default.createElement("input", { type: "text", placeholder: "Search for hostname", value: this.props.filterText, onChange: this.handleTextChange })
-			);
-		}
-	}]);
-
-	return SearchBar;
+    return Key;
 }(_react.Component);
 
-function Alert(props) {
-	var alert = props.alert;
-	return _react2.default.createElement(
-		"div",
-		{ className: "alert" },
-		_react2.default.createElement(
-			"div",
-			{ className: "alertBox severity CRITICAL" },
-			"CRITICAL"
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "alertBox host" },
-			alert.host
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "alertBox message" },
-			alert.message
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "alertBox age" },
-			"19 min"
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "alertBox lastOccurence" },
-			alert.lastOccurence
-		)
-	);
+function getSuggestion(keys) {
+    return new Promise(function (fullfiled) {
+        _jquery2.default.ajax({
+            method: "GET",
+            url: "/api/suggest?method=trie&keys=" + keys,
+            success: function success(data) {
+                fullfiled(data);
+            }
+        });
+    });
 }
 
-socket.on("alert", function (data) {
-	console.log(data);
-	_reactDom2.default.render(_react2.default.createElement(AlertsList, { alerts: data, filterText: "" }), document.getElementById("root"));
-});
-
-function loadAlerts() {
-	return new Promise(function (fullfiled) {
-		_jquery2.default.ajax({
-			method: "GET",
-			url: "/api/alerts",
-			dataType: "json",
-			success: function success(data) {
-				fullfiled(data);
-			}
-		});
-	});
-}
-
-loadAlerts().then(function (data) {
-	_reactDom2.default.render(_react2.default.createElement(AlertsList, { alerts: data, filterText: "" }), document.getElementById("root"));
-});
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("root"));
 
 /***/ }),
 /* 81 */
