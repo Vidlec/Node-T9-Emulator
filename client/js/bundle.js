@@ -9620,7 +9620,11 @@ var Display = function (_Component2) {
             return _react2.default.createElement(
                 "div",
                 { className: "display" },
-                this.props.text
+                _react2.default.createElement(
+                    "p",
+                    { className: "displayText" },
+                    this.props.text
+                )
             );
         }
     }]);

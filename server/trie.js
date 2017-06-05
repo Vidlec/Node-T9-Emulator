@@ -28,14 +28,21 @@ const keys = {
         'z': 9
     };
     
+
+
+//This solution is far better. It uses prefix trees.
+//It generates all possible numeric combinations for given dictionary words.
+//Then its easy to traverse tree for given number and list all asociated words.
+//Credit goes to http://www.mitchrobb.com/t9-in-javascript-with-a-prefix-tree/
+
 var Trie = function () {
     this.children = {};
     this.words = [];
 };
 
-Trie.prototype.insert = function (word, useFrequency) {
+Trie.prototype.insert = function (word) {
     var nodeToAddWord = traverseAddingNodes(this);
-    insertWordIntoList(nodeToAddWord.words, word);
+    nodeToAddWord.words.push(word);
 
     function traverseAddingNodes(node) {
         var i = 0,
@@ -58,12 +65,6 @@ Trie.prototype.insert = function (word, useFrequency) {
         }
         return node;
     }
-
-    function insertWordIntoList(list, word) {
-        var wordToInsert = word;
-        var wordsLength = list.length;
-        list.push(wordToInsert);
-    }
 };
 
 Trie.prototype.getSuggestions = function (keyString) {
@@ -77,10 +78,7 @@ Trie.prototype.getSuggestions = function (keyString) {
         }
         node = node.children[thisKey];
     }
-    result = result.concat(node.words.map(function (word) {
-        return word;
-    }));
-    return result;
+    return node.words;
 };
 
 
@@ -89,10 +87,9 @@ function trie() {
     var dict = new this.Trie();
 
     function processData(allText) {
-        lines = allText.split('\n');
-        lines.forEach(function (word) {
-            word = word.split('\t');
-            word = word.toString().toLowerCase();
+        words = allText.split('\n');
+        words.forEach(function (word) {
+            word = word.trim("\r");
             dict.insert(word);
         });
         console.log("Done parsing dictionary");
@@ -105,11 +102,5 @@ function trie() {
         })
     }
 }
-
-
-//This solution is far better. It uses prefix trees.
-//It generates all possible numeric combinations for given dictionary words.
-//Then its easy to traverse tree for given number and list all asociated words.
-//Credit goes to http://www.mitchrobb.com/t9-in-javascript-with-a-prefix-tree/
 
 module.exports = trie;

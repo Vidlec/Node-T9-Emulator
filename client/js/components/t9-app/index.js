@@ -62,7 +62,7 @@ class App extends Component{
 class Display extends Component{
     render(){
         return(
-            <div className="display">{this.props.text}</div>
+            <div className="display"><p className="displayText">{this.props.text}</p></div>
         )
     }
 }

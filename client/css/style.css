@@ -23,14 +23,25 @@
 }
 
 .display{
-    width: 321px;
+  width: 321px;
     height: 100px;
     background-color: white;
     font-weight: 800;
     font-size: xx-large;
+    display: inline-block;
+}
+.displayText{
+    margin: 10px;
+    line-height: 35px;
+    /* overflow: scroll; */
+    /* height: 90px; */
+    width: 301px;
+    display: inline-block;
 }
 body{
       background-color: #98d6d1;
+      margin: 0px;
+      width: 100%;
 }
 p{
   margin: 0;
@@ -76,6 +87,6 @@ width: 40px;
 
 #root{
     margin: 0 auto;
-    width: 330px;
+    width: 321px;
 }
 

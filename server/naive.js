@@ -2,7 +2,6 @@ const fs = require("fs");
 const dictionary = fs.readFileSync("server/dictionary.txt", "utf8");
 const dictionaryWords = dictionary.split(/\s+/g);
 
-
 const values = {
     2: ["a", "b", "c"],
     3: ["d", "e", "f"],
