@@ -20,7 +20,6 @@ class App extends Component{
     constructor(props){
         super(props);
         this.state = {suggested: [],keys:"",text:"",sentence:""}
-        //this.handleTextChange = this.handleTextChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleWordSelection = this.handleWordSelection.bind(this);
     }
