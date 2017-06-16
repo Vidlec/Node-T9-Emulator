@@ -97,13 +97,13 @@ class KeyPad extends Component{
                     {dials}        
             </div>
         )
-    }
+    } 
 }
+
 
 class Key extends Component{
 
 }
-
 function getSuggestion(keys)
 {
 	return new Promise((fullfiled)=>
