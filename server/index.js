@@ -14,4 +14,4 @@ router.route("/suggest")
     Trie.suggest(req.query.keys).then((result)=>{res.json(result)})  : 
     naive.suggest(req.query.keys).then((result)=>{res.json(result)}); 
 })
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
