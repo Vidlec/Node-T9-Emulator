@@ -1,32 +1,32 @@
 var fs = require("fs");
 const keys = {
-        'a': 2,
-        'b': 2,
-        'c': 2,
-        'd': 3,
-        'e': 3,
-        'f': 3,
-        'g': 4,
-        'h': 4,
-        'i': 4,
-        'j': 5,
-        'k': 5,
-        'l': 5,
-        'm': 6,
-        'n': 6,
-        'o': 6,
-        'p': 7,
-        'q': 7,
-        'r': 7,
-        's': 7,
-        't': 8,
-        'u': 8,
-        'v': 8,
-        'w': 9,
-        'x': 9,
-        'y': 9,
-        'z': 9
-    };
+    "a": 2,
+    "b": 2,
+    "c": 2,
+    "d": 3,
+    "e": 3,
+    "f": 3,
+    "g": 4,
+    "h": 4,
+    "i": 4,
+    "j": 5,
+    "k": 5,
+    "l": 5,
+    "m": 6,
+    "n": 6,
+    "o": 6,
+    "p": 7,
+    "q": 7,
+    "r": 7,
+    "s": 7,
+    "t": 8,
+    "u": 8,
+    "v": 8,
+    "w": 9,
+    "x": 9,
+    "y": 9,
+    "z": 9
+};
     
 
 
@@ -68,7 +68,6 @@ Trie.prototype.insert = function (word) {
 };
 
 Trie.prototype.getSuggestions = function (keyString) {
-    var result = [];
     var node = this;
 
     for (var i = 0; i < keyString.length; i++) {
@@ -87,7 +86,7 @@ function trie() {
     var dict = new this.Trie();
 
     function processData(allText) {
-        words = allText.split('\n');
+        let words = allText.split("\n");
         words.forEach(function (word) {
             word = word.trim("\r");
             dict.insert(word);
@@ -99,8 +98,8 @@ function trie() {
     this.suggest = (input) => {
         return new Promise((resolve, reject) => {
             resolve(dict.getSuggestions(input));
-        })
-    }
+        });
+    };
 }
 
 module.exports = trie;

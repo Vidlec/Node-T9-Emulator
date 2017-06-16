@@ -1,7 +1,3 @@
-const fs = require("fs");
-const dictionary = fs.readFileSync("server/dictionary.txt", "utf8");
-const dictionaryWords = dictionary.split(/\s+/g);
-
 const values = {
     2: ["a", "b", "c"],
     3: ["d", "e", "f"],
@@ -11,7 +7,7 @@ const values = {
     7: ["p", "q", "r", "s"],
     8: ["t", "u", "v"],
     9: ["w", "x", "y", "z"],
-}
+};
 
 //This implementation generates all possible words
 //Very inefective when searching for longer words
@@ -23,8 +19,8 @@ var t9 = function (input) {
         var word = "";
         search(word, letters, combinations, 0, letters.length - 1);
         resolve(combinations);
-    })
-}
+    });
+};
 
 function search(word, letters, combinations, position, length) {
     if (position <= length) {

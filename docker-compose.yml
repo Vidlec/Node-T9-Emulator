@@ -1,0 +1,13 @@
+
+version: '2'
+
+services:
+  t9:
+    image: t9:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8080:8080

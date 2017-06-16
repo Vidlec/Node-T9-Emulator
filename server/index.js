@@ -11,7 +11,7 @@ app.use("/",express.static("./client"));
 router.route("/suggest")
 .get((req,res)=>{
     (req.query.method === "trie")?
-    Trie.suggest(req.query.keys).then((result)=>{res.json(result)})  : 
-    naive.suggest(req.query.keys).then((result)=>{res.json(result)}); 
-})
+    Trie.suggest(req.query.keys).then((result)=>{res.json(result);})  : 
+    naive.suggest(req.query.keys).then((result)=>{res.json(result);}); 
+});
 app.listen(process.env.PORT || 8080);
